@@ -1,6 +1,6 @@
 import Queue
-
 import requests
+
 from lxml import html
 
 
@@ -35,5 +35,3 @@ class LinkFinder:
 
     def validate(self, url):
         return url.startswith(self.base_url)
-
-

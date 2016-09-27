@@ -1,19 +1,30 @@
-class UrlResult():
+import threading
+
+lock = threading.Lock()
+
+
+class UrlResult:
     def __init__(self, url):
         self._results = {}
         self._url = url
 
-    def addResult(self, key, value):
-        if key in self._results:
-            self._results[key] += value
-        else:
-            self._results[key] = value
-        return self
+    def put(self, key, value):
+        with lock:
+            if key in self._results:
+                self._results[key] += value
+            else:
+                self._results[key] = value
+            return self
 
-    @property
-    def getUrl(self):
+    def get(self, key):
+        with lock:
+            return self._results[key]
+
+    def seturl(self, url):
+        self._url = url
+
+    def geturl(self):
         return self._url
 
-    @property
-    def getResults(self):
+    def all(self):
         return self._results
