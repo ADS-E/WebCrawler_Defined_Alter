@@ -27,11 +27,10 @@ class CsvHelper():
         :param input: list (including list of lists)(default [])
         :return: boolean (depending on success)
         """
-        with open(self._filepath, "a+") as csvfile:
+        with open(self._filepath, "a") as csvfile:
             writer = csv.writer(csvfile, dialect='excel')
-            lel = ["sdf", "ss", "aa"]
-            values = urlResult.values()
-            writer.writerow(lel)
+            values = urlResult.csv_format()
+            writer.writerow(values)
 
     def read(self):
         """

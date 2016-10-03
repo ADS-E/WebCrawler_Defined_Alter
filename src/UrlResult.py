@@ -29,5 +29,10 @@ class UrlResult:
     def all(self):
         return self._results
 
-    def values(self):
-        return self._results.values()
+    def csv_format(self):
+        values = []
+        values.append(self._url)
+        for key, value in self._results.items():
+            values.append(value)
+
+        return values
