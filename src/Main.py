@@ -1,27 +1,17 @@
-from CsvHelper import CsvHelper
-from UrlResult import UrlResult
+import CsvHelper
+from Crawler import Crawler
+from LinkFinder import LinkFinder
 
-csvHelper = CsvHelper()
-result = UrlResult("urlurl")
-result.put("lelel", 5)
-result.put("ziek", 8)
-csvHelper.save(result)
+for url in CsvHelper.read_file('webshops.csv'):
+    print("Processing: %s" % url)
 
+    queue = LinkFinder(url).find()
+    result = Crawler(queue).run()
+    result.seturl(url)
 
-# for url in csvHelper.read():
-#    print("Processing: %s" % url)
-#    print(sys.version)
+    CsvHelper.write_results(result)
 
-# queue = LinkFinder(url).find()
-# result = Crawler(queue).run()
-# result.seturl(url)
+    print("Done")
 
-#    result = UrlResult("urlurl")
-#    result.put("lelel", 5)
-#    result.put("ziek", 8)
-#    csvHelper.save(result)
-
-#    print("Done")
-
-# for key, value in result.all().iteritems():
-#    print('Found %s %s times' % (key, value))
+    for key, value in result.all().items():
+        print('Found %s %s times' % (key, value))

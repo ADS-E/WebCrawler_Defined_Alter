@@ -32,7 +32,7 @@ class UrlResult:
     def csv_format(self):
         values = []
         values.append(self._url)
-        for key, value in self._results.items():
-            values.append(value)
+        for key in sorted(self._results):
+            values.append(self._results[key])
 
         return values

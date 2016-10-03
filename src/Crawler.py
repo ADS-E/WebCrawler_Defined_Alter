@@ -38,7 +38,7 @@ class Crawler:
         """Create, start and add threads to a list. Threads run an instance of Spider.
         The amount of threads created depends on the amount of cores found in the system."""
 
-        for i in xrange(multiprocessing.cpu_count()):
+        for i in range(1, multiprocessing.cpu_count()):
             name = "Thread-%s" % i
             thread = Spider(name, self.queue, self.result)
             thread.start()
