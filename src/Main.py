@@ -13,5 +13,5 @@ for url in CsvHelper.read_file('webshops.csv'):
 
     print("Done")
 
-    for key, value in result.all().items():
-        print('Found %s %s times' % (key, value))
+    #for key, value in result.all().items():
+    #    print('Found %s %s times' % (key, value))

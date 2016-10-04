@@ -31,6 +31,8 @@ class Spider(threading.Thread):
         """Count for every word that needs to be checked the amount of times it's found in the page content.
         Add this result to the UrlResult as a key and value pair."""
 
+        s = requests.Session()
+        s.headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36'
         content = requests.get(url).text
 
         for word in self.words:

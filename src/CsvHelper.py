@@ -40,4 +40,7 @@ def read_file(filePath):
         data = csv.reader(csvfile, delimiter=';', quotechar='"')
         for row in data:
             result.append(row)
-    return [item for sublist in result for item in sublist]
+    data = [item for sublist in result for item in sublist]
+    data.sort()
+
+    return data
