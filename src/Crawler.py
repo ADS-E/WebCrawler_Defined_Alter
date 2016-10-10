@@ -16,6 +16,7 @@ class Crawler:
 
         self.queue = queue
         self.result = UrlResult('lel')
+        self.result.set_page_count(self.queue._qsize())
 
     def run(self):
         """ Create the necessary threads. Check the amount of items still in the queue every second.

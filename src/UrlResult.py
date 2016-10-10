@@ -7,6 +7,8 @@ class UrlResult:
     def __init__(self, url):
         self._results = {}
         self._url = url
+        self.word_count = 0
+        self.page_count = 0
 
     def put(self, key, value):
         with lock:
@@ -19,6 +21,13 @@ class UrlResult:
     def get(self, key):
         with lock:
             return self._results[key]
+
+    def set_word_count(self, count):
+        with lock:
+            self.word_count += count
+
+    def set_page_count(self, count):
+        self.page_count = count
 
     def seturl(self, url):
         self._url = url
@@ -35,4 +44,6 @@ class UrlResult:
         for key in sorted(self._results):
             values.append(self._results[key])
 
+        values.append(self.word_count)
+        values.append(self.page_count)
         return values

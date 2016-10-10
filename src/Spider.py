@@ -33,10 +33,18 @@ class Spider(threading.Thread):
         """Count for every word that needs to be checked the amount of times it's found in the page content.
         Add this result to the UrlResult as a key and value pair."""
 
-        html = requests.get(url).text
-        document = lxml.html.document_fromstring(html)
-        content = "\n".join(etree.XPath("//text()")(document))
+        try:
+            html = requests.get(url).text
+            document = lxml.html.document_fromstring(html)
+            content = "\n".join(etree.XPath("//text()")(document))
 
-        for word in self.words:
-            count = len(re.findall(re.compile(word, re.IGNORECASE), content))
-            self.result.put(word, count)
+            word_count = len(content.split())
+            self.result.set_word_count(word_count)
+
+            for word in self.words:
+                count = len(re.findall(re.compile(word, re.IGNORECASE), content))
+                self.result.put(word, count)
+        except Exception as e:
+            print(e)
+
+

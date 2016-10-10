@@ -12,6 +12,9 @@ def write_results(urlResult):
 
         columns = read_file('words.csv')
         columns.insert(0, 'URL')
+        columns.insert(len(columns), "WordCount")
+        columns.insert(len(columns), "PageCount")
+
         writer.writerow(columns)
 
         values = urlResult.csv_format()
