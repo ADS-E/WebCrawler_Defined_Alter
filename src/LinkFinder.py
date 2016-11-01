@@ -15,29 +15,35 @@ class LinkFinder:
     def find(self):
         queue = Queue()
 
-        index = 0
-        for url in self.links:
-            print('Index %s of size %s' % (index, len(self.links)))
-            # print 'Scanning URL: %s' % url
+        try:
 
-            if len(self.links) > maxSize:
-                break
+            index = 0
+            for url in self.links:
+                print('Index %s of size %s' % (index, len(self.links)))
+                # print 'Scanning URL: %s' % url
 
-            content = requests.get(url).content
-            tree = html.fromstring(content)
+                if len(self.links) > maxSize:
+                    break
 
-            for link in tree.xpath('//a'):
-                value = link.get('href')
-                value = self.construct(value)
+                content = requests.get(url).content
+                tree = html.fromstring(content)
 
-                if self.validate(value):
-                    if value not in self.links:
-                        self.links.append(value)
-                        # print 'found: %s ' % value
-            index += 1
+                for link in tree.xpath('//a'):
+                    value = link.get('href')
+                    value = self.construct(value)
 
-        for url in self.links:
-            queue.put(url)
+                    if self.validate(value):
+                        if value not in self.links:
+                            self.links.append(value)
+                            # print 'found: %s ' % value
+                index += 1
+
+            for url in self.links:
+                queue.put(url)
+
+        except Exception as e:
+            queue = Queue()
+            #print(e)
 
         return queue
 
